@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -234,6 +234,8 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -283,7 +285,27 @@ require('lazy').setup({
       },
     },
   },
-
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+    keys = {
+      -- Will use Telescope if installed or a vim.ui.select picker otherwise
+      { '<leader>wr', '<cmd>SessionSearch<CR>', desc = 'Session search' },
+      { '<leader>ws', '<cmd>SessionSave<CR>', desc = 'Save session' },
+      { '<leader>wd', '<cmd>SessionDelete<CR>', desc = 'Delete session' },
+    },
+    ---enables autocomplete for opts
+    ---@module "auto-session"
+    ---@type AutoSession.Config
+    opts = {
+      suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+      log_level = 'info',
+      auto_session_enable_last_session = true,
+      auto_session_root_dir = vim.fn.stdpath 'data' .. '/sessions/',
+      auto_save_enabled = true,
+      auto_restore_enabled = true,
+    },
+  },
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -671,9 +693,9 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
