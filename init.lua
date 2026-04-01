@@ -182,7 +182,7 @@ vim.o.expandtab = true
 -- Enable smart indenting
 vim.o.smartindent = true
 vim.o.confirm = true
-vim.g.python3_host_prog = vim.fn.expand '/repo/plantcareweb/.venv/bin/python'
+vim.g.python3_host_prog = vim.fn.expand '/home/pawel/claude-workspace/workspace/django-project/plantcareweb/venv/bin/python'
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -317,9 +317,9 @@ require('lazy').setup({
     lazy = false,
     keys = {
       -- Will use Telescope if installed or a vim.ui.select picker otherwise
-      { '<leader>wr', '<cmd>SessionSearch<CR>', desc = 'Session search' },
-      { '<leader>ws', '<cmd>SessionSave<CR>', desc = 'Save session' },
-      { '<leader>wd', '<cmd>SessionDelete<CR>', desc = 'Delete session' },
+      { '<leader>wr', '<cmd>AutoSession search<CR>', desc = 'Session search' },
+      { '<leader>ws', '<cmd>AutoSession save<CR>', desc = 'Save session' },
+      { '<leader>wd', '<cmd>AutoSession delete<CR>', desc = 'Delete session' },
     },
     ---enables autocomplete for opts
     ---@module "auto-session"
@@ -511,7 +511,20 @@ require('lazy').setup({
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
-
+  {
+    'sindrets/diffview.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
+  },
+  { 'MeanderingProgrammer/render-markdown.nvim' },
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && npm install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end,
+    ft = { 'markdown' },
+  },
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -821,7 +834,7 @@ require('lazy').setup({
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 3000,
             lsp_format = 'fallback',
           }
         end
