@@ -223,6 +223,7 @@ require('lazy').setup({
       auto_session_root_dir = vim.fn.stdpath 'data' .. '/sessions/',
       auto_save_enabled = true,
       auto_restore_enabled = vim.fn.argc(-1) == 0,
+      pre_save_cmds = { 'if exists(":Neotree") == 2 | Neotree close | endif' },
     },
   },
   { -- Useful plugin to show you pending keybinds.
@@ -272,7 +273,6 @@ require('lazy').setup({
       -- Document existing key chains
       spec = {
         { '<leader>b', group = '[B]uffers' },
-        { '<leader>e', group = '[E]xplorer' },
         { '<leader>p', group = '[P]roject' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },

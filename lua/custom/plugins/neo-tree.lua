@@ -6,9 +6,10 @@ return {
     'nvim-tree/nvim-web-devicons',
     'MunifTanjim/nui.nvim',
   },
+  lazy = false,
   keys = {
-    { '<leader>ee', '<cmd>Neotree toggle left<CR>', desc = '[E]xplorer toggle' },
-    { '<leader>eo', '<cmd>Neotree reveal left<CR>', desc = '[E]xplorer reveal current file' },
+    { '<leader>e', '<cmd>Neotree toggle left<CR>', desc = '[E]xplorer toggle' },
+    { '<leader>o', '<cmd>Neotree reveal left<CR>', desc = 'Reveal current file in explorer' },
   },
   opts = {
     close_if_last_window = true,
